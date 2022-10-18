@@ -5,6 +5,7 @@ import { Profile } from "./components/Profile/Profile";
 import { Home } from "./components/Home/Home";
 import { createContext } from "react";
 import { Books } from "./components/Books/Books";
+import { Notfound } from "./components/Notfound";
 
 export const AppContext = createContext();
 
@@ -20,6 +21,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/book/:id" element={<Books />} />
+            {/* Route for 404 not found page  */}
+            <Route path="*" element={<Notfound />} />
           </Routes>
         </Router>
       </AppContext.Provider>
