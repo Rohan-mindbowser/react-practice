@@ -21,10 +21,10 @@ function App() {
     <>
       <AppContext.Provider value={{ name, setName }}>
         <Router>
-          <NavLink to="/">Home</NavLink>
+          {/* <NavLink to="/">Home</NavLink>
           <NavLink to="/profile">Profile</NavLink>
           <NavLink to="/book/:id">Books</NavLink>
-          <NavLink to="/register">Register</NavLink>
+          <NavLink to="/register">Register</NavLink> */}
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<Profile />} />

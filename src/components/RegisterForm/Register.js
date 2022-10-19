@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import "./register.css";
+import signup from "./img/signup1.png";
 
 export const Register = () => {
   const schema = yup.object().shape({
@@ -24,54 +25,95 @@ export const Register = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm({ resolver: yupResolver(schema) });
-  const onSubmit = (data) => console.log(data);
+    formState: { errors, touchedFields, isValid, isDirty },
+    reset,
+  } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      fullName: "",
+    },
+  });
+  const onSubmit = (data) => {
+    console.log(data);
+    reset();
+  };
+  console.log(isDirty);
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input placeholder="Enter full name" {...register("fullName")} />
-        <br />
+      <div className="signup_container">
+        <div className="signup_content">
+          <div className="left">
+            <img src={signup} />
+          </div>
+          <div className="right">
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="form_input">
+                <label className="form_label">Full Name</label>
+                <input
+                  placeholder="Enter full name"
+                  {...register("fullName")}
+                />
+                {errors.fullName?.message && (
+                  <span className="error_message">
+                    {errors.fullName.message}
+                  </span>
+                )}
+              </div>
 
-        {errors.fullName?.message && (
-          <span className="error_message">{errors.fullName.message}</span>
-        )}
-        <br />
-        <input placeholder="Enter Email" {...register("email")} />
-        <br />
+              <div className="form_input">
+                <label className="form_label">Email</label>
+                <input placeholder="Enter Email" {...register("email")} />
+                {errors.email?.message && (
+                  <span className="error_message">{errors.email.message}</span>
+                )}
+              </div>
 
-        {errors.email?.message && (
-          <span className="error_message">{errors.email.message}</span>
-        )}
-        <br />
-        <input placeholder="Enter phone number" {...register("phone")} />
-        <br />
+              <div className="form_input">
+                <label className="form_label">Phone Number</label>
+                <input
+                  placeholder="Enter Phone number"
+                  {...register("phone")}
+                />
 
-        {errors.phone?.message && (
-          <span className="error_message">{errors.phone.message}</span>
-        )}
-        <br />
-        <input placeholder="Enter password" {...register("password")} />
-        <br />
+                {errors.phone?.message && (
+                  <span className="error_message">{errors.phone.message}</span>
+                )}
+              </div>
 
-        {errors.password?.message && (
-          <span className="error_message">{errors.password.message}</span>
-        )}
-        <br />
+              <div className="form_input">
+                <label className="form_label">Password</label>
+                <input
+                  type="password"
+                  placeholder="Enter Password"
+                  {...register("password")}
+                />
+                {errors.password?.message && (
+                  <span className="error_message">
+                    {errors.password.message}
+                  </span>
+                )}
+              </div>
 
-        <input
-          placeholder="Enter confirm password"
-          {...register("confirmPassword")}
-        />
-        <br />
-        {errors.confirmPassword?.message && (
-          <span className="error_message">
-            {errors.confirmPassword.message}
-          </span>
-        )}
-        <br />
-        <input type="submit" value="submit form" />
-      </form>
+              <div className="form_input">
+                <label className="form_label">Confirm Password</label>
+                <input
+                  type="password"
+                  placeholder="Enter confirm password"
+                  {...register("confirmPassword")}
+                />
+                {errors.confirmPassword?.message && (
+                  <span className="error_message">
+                    {errors.confirmPassword.message}
+                  </span>
+                )}
+              </div>
+              <button className="submit-btn" type="submit" disabled={!isValid}>
+                submit form
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
     </>
   );
 };
