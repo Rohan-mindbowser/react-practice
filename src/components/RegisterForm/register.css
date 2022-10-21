@@ -29,8 +29,12 @@
   height: 100%;
   background-color: #6c63ff;
   display: flex;
+  justify-content: space-between;
   flex-direction: column;
   padding: 1rem;
+}
+.right form{
+  height: 100%;
 }
 .form_input {
   display: flex;
@@ -64,15 +68,17 @@
   border-radius: 10px;
   outline: none;
   cursor: pointer;
+  margin-bottom: 1rem;
 }
 /* .submit-btn:hover {
   background-color: #6c63ff;
   border: 3px solid white;
   color: white;
 } */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 868px) {
   .signup_content {
     width: 99%;
+    flex-direction: column-reverse;
   }
   .left,
   .right {

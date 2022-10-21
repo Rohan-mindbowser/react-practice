@@ -3,6 +3,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import "./register.css";
 import signup from "./img/signup1.png";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 export const Register = () => {
   const schema = yup.object().shape({
@@ -34,10 +36,20 @@ export const Register = () => {
     },
   });
   const onSubmit = (data) => {
-    console.log(data);
-    reset();
+    axios
+      .post("http://localhost:8000/api/emp/signup", {
+        name: data.fullName,
+        email: data.email,
+        password: data.password,
+      })
+      .then(function (response) {
+        alert("Data submitted success..");
+        reset();
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
-  console.log(isDirty);
   return (
     <>
       <div className="signup_container">
@@ -107,9 +119,11 @@ export const Register = () => {
                   </span>
                 )}
               </div>
-              <button className="submit-btn" type="submit" disabled={!isValid}>
+              <button className="submit-btn" type="submit">
                 submit form
               </button>
+              <br/>
+              <Link style={{"color":"white"}} to="/login">Already Have an Account?</Link>
             </form>
           </div>
         </div>
