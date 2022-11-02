@@ -21,7 +21,7 @@ export const SingleProduct = ({ jewellery }) => {
         <span className="original_price">{jewellery.original_price}</span>
         <span className="product_name">{jewellery.product_name}</span>
       </div>
-      <i className="fa-solid fa-heart"></i>
+      <i className="fa-solid fa-heart fav-heart"></i>
     </div>
   );
 };

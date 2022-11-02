@@ -14,6 +14,10 @@ import { ParentComp } from "./components/ParentComp";
 import { Jewellery } from "./components/jewellery/Jewellery";
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import { ViewProduct } from "./components/view product/viewProduct";
+import { Bracelet } from "./components/Category/Bracelet";
+import { Ring } from "./components/Category/Ring";
+import { Necklace } from "./components/Category/Necklace";
+import { Earring } from "./components/Category/Earring";
 
 const queryClient = new QueryClient();
 
@@ -44,6 +48,10 @@ function App() {
               </Route>
               <Route path="jewellery" element={<Jewellery />} />
               <Route path="product/:id" element={<ViewProduct />} />
+              <Route path="bracelet" element={<Bracelet />} />
+              <Route path="ring" element={<Ring />} />
+              <Route path="necklace" element={<Necklace />} />
+              <Route path="earring" element={<Earring />} />
             </Routes>
           </Router>
         </QueryClientProvider>

@@ -3,6 +3,7 @@ import { useJewelleryApi } from "../../Api/JewelleryApi/useJewelleryApi";
 import { Bracelet } from "../Category/Bracelet";
 import { Navbar } from "../Navbar/Navbar";
 import { SingleProduct } from "../Single Product/singleProduct";
+import "./style.css";
 
 export const Jewellery = () => {
   const { isLoading, data } = useJewelleryApi();
@@ -11,12 +12,12 @@ export const Jewellery = () => {
   let allBraceletData = [];
   useEffect(() => {
     setJewelleryData(data);
-  }, [data]);
+  });
   return (
     <>
       <Navbar />
       {isLoading && <h1>Loading...</h1>}
-      <div className="container mt-3">
+      <div className="container jewellery_container">
         <div className="row">
           <div className="col-md-3 mb-3">
             {jewelleryData &&
