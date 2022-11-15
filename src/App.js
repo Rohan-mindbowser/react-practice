@@ -18,6 +18,7 @@ import { Bracelet } from "./components/Category/Bracelet";
 import { Ring } from "./components/Category/Ring";
 import { Necklace } from "./components/Category/Necklace";
 import { Earring } from "./components/Category/Earring";
+import { Checkout } from "./components/checkout/Checkout";
 
 const queryClient = new QueryClient();
 
@@ -52,6 +53,7 @@ function App() {
               <Route path="ring" element={<Ring />} />
               <Route path="necklace" element={<Necklace />} />
               <Route path="earring" element={<Earring />} />
+              <Route path="checkout" element={<Checkout />}/>
             </Routes>
           </Router>
         </QueryClientProvider>

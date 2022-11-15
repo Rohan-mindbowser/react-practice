@@ -4,6 +4,7 @@ import { Bracelet } from "../Category/Bracelet";
 import { Navbar } from "../Navbar/Navbar";
 import { SingleProduct } from "../Single Product/singleProduct";
 import "./style.css";
+import axios from "axios";
 
 export const Jewellery = () => {
   const { isLoading, data } = useJewelleryApi();
@@ -12,12 +13,29 @@ export const Jewellery = () => {
   let allBraceletData = [];
   useEffect(() => {
     setJewelleryData(data);
-  });
+  }, [data]);
   return (
     <>
       <Navbar />
       {isLoading && <h1>Loading...</h1>}
+      {!jewelleryData && <h1>No match found</h1>}
       <div className="container jewellery_container">
+        <input
+          type="range"
+          min="1000"
+          max="5000"
+          step="1000"
+          onChange={(e) => {
+            axios
+              .get(
+                `http://localhost:8000/api/products/productsbypricerange?min=1000&max=${e.target.value}`
+              )
+              .then((res) => {
+                const jewellery = res.data;
+                setJewelleryData(jewellery);
+              });
+          }}
+        ></input>
         <div className="row">
           <div className="col-md-3 mb-3">
             {jewelleryData &&

@@ -2,24 +2,68 @@ import { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { useSingleJewelleryApi } from "../../Api/JewelleryApi/useJewelleryApi";
 import { Navbar } from "../Navbar/Navbar";
-import { ProductSlider } from "../Product Slider/ProductSlider";
+import { ToastContainer, toast } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 
 import "./style.css";
 
 export const ViewProduct = () => {
   let { id } = useParams();
-  const { isLoading, data } = useSingleJewelleryApi(id);
   const [singleJewellery, setSingleJewellery] = useState([]);
+  const { isLoading, data } = useSingleJewelleryApi(id);
+
   useEffect(() => {
     setSingleJewellery(data);
-  }, [data]);
+  });
+  function addProductToLocalStorage(product) {
+    let previousCartItem = localStorage.getItem("cartItem");
+    let newCartItems = [];
+    if (previousCartItem) {
+      newCartItems = JSON.parse(previousCartItem);
+    }
+    let isUpdatedQuantity = false;
+    newCartItems.forEach((item) => {
+      if (item._id === product[0]._id) {
+        item.quantity = item.quantity + 1;
+        localStorage.setItem("cartItem", JSON.stringify(newCartItems));
+        isUpdatedQuantity = true;
+        toast("Product added in cart", {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      }
+    });
+
+    if (!isUpdatedQuantity) {
+      newCartItems.push({ ...product[0], quantity: 1 });
+      localStorage.setItem("cartItem", JSON.stringify(newCartItems));
+      toast("Product added in cart", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
+  }
+
   return (
     <>
       <Navbar />
       <div className="container view_product_container">
         <div className="mb-3 back_link">
           <NavLink to="/jewellery">
-            <i class="fa-solid fa-arrow-left me-2"></i>Back
+            <i className="fa-solid fa-arrow-left me-2"></i>Back
           </NavLink>
         </div>
         {singleJewellery && (
@@ -56,7 +100,14 @@ export const ViewProduct = () => {
               </div>
               <br />
               <div className="add_to_cart_and_heart mt-3">
-                <button className="custom-btn">Add To Cart</button>
+                <button
+                  className="custom-btn"
+                  onClick={() => {
+                    addProductToLocalStorage(singleJewellery);
+                  }}
+                >
+                  Add To Cart
+                </button>
                 <i className="fa-solid fa-heart ms-3 heart_logo"></i>
               </div>
               <div className="mt-4 single_product_desc">
@@ -78,8 +129,15 @@ export const ViewProduct = () => {
           </div>
         )}
       </div>
-
+      <button
+        onClick={() => {
+          console.log(JSON.parse(localStorage.getItem("cartItem")));
+        }}
+      >
+        View
+      </button>
       {/* <ProductSlider /> */}
+      <ToastContainer />
     </>
   );
 };

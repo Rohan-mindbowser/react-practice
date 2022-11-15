@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./style.css";
 
@@ -70,6 +71,15 @@ export const Navbar = () => {
                   Earring
                 </NavLink>
               </li>
+              <li className="nav-item">
+                <NavLink
+                  className="nav-link active"
+                  aria-current="page"
+                  to="/checkout"
+                >
+                  Checkout
+                </NavLink>
+              </li>
             </ul>
           </div>
           <i
@@ -85,7 +95,7 @@ export const Navbar = () => {
       <div
         className="modal fade"
         id="exampleModal"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
@@ -104,7 +114,7 @@ export const Navbar = () => {
             </div>
             <div className="modal-body">...</div>
             <div className="modal-footer">
-              <button type="button" class="custom-btn">
+              <button type="button" className="custom-btn">
                 Checkout
               </button>
             </div>

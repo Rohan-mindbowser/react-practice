@@ -1,0 +1,9 @@
+.product_card {
+  width: 100%;
+  height: 400px;
+  background-color: red;
+}
+.all_cart_products {
+  height: 90vh;
+  overflow-y: scroll;
+}
