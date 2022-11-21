@@ -1,6 +1,20 @@
+import { useContext } from "react";
+import { cart } from "../../context/CartContext";
 import "./style.css";
 
 export const SingleCartProduct = ({ product }) => {
+  const { cartProducts, setCartProducts } = useContext(cart);
+  function removeCartProduct() {
+    // setCartProducts(
+
+    // );
+    cartProducts.map((item, index) => {
+      if (item._id === product._id) {
+        cartProducts.splice(index, 1);
+      }
+    });
+    setCartProducts(cartProducts);
+  }
   return (
     <>
       <div className="cart_container mb-3">
@@ -21,7 +35,7 @@ export const SingleCartProduct = ({ product }) => {
             )}
           </span>
           <br />
-          <div className="d-flex justify-content-between mt-3">
+          <div className="d-flex justify-content-between mt-4">
             <p style={{ margin: "0px" }}>
               Quantity :{" "}
               <span>
@@ -34,7 +48,14 @@ export const SingleCartProduct = ({ product }) => {
                 ></input>
               </span>
             </p>
-            <button className="custom-btn">Remove</button>
+            <button
+              className="custom-btn"
+              onClick={() => {
+                removeCartProduct();
+              }}
+            >
+              Remove
+            </button>
           </div>
         </div>
       </div>

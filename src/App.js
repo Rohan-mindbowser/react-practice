@@ -22,42 +22,38 @@ import { Checkout } from "./components/checkout/Checkout";
 
 const queryClient = new QueryClient();
 
-export const AppContext = createContext();
-
 function App() {
   const [name, setName] = useState("Rohan");
   return (
     <>
-      <AppContext.Provider>
-        <QueryClientProvider client={queryClient}>
-          <Router>
-            {/* <NavLink to="/">Home</NavLink>
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          {/* <NavLink to="/">Home</NavLink>
           <NavLink to="/profile">Profile</NavLink>
           <NavLink to="/book/:id">Books</NavLink>
           <NavLink to="/register">Register</NavLink> */}
-            <Routes>
-              <Route path="/" element={<ProtectedRoute />}>
-                <Route path="user" element={<ParentComp />}>
-                  <Route path="profile" element={<Profile />} />
-                  <Route path="book/:id" element={<Books />} />
-                  <Route path="register" element={<Register />} />
-                </Route>
-                <Route path="/login" element={<Login />} />
-                <Route path="/dash" element={<ProtectedRoute />} />
-                {/* Route for 404 not found page  */}
-                {/* <Route path="*" element={<Notfound />} /> */}
+          <Routes>
+            <Route path="/" element={<ProtectedRoute />}>
+              <Route path="user" element={<ParentComp />}>
+                <Route path="profile" element={<Profile />} />
+                <Route path="book/:id" element={<Books />} />
+                <Route path="register" element={<Register />} />
               </Route>
-              <Route path="jewellery" element={<Jewellery />} />
-              <Route path="product/:id" element={<ViewProduct />} />
-              <Route path="bracelet" element={<Bracelet />} />
-              <Route path="ring" element={<Ring />} />
-              <Route path="necklace" element={<Necklace />} />
-              <Route path="earring" element={<Earring />} />
-              <Route path="checkout" element={<Checkout />}/>
-            </Routes>
-          </Router>
-        </QueryClientProvider>
-      </AppContext.Provider>
+              <Route path="/login" element={<Login />} />
+              <Route path="/dash" element={<ProtectedRoute />} />
+              {/* Route for 404 not found page  */}
+              {/* <Route path="*" element={<Notfound />} /> */}
+            </Route>
+            <Route path="jewellery" element={<Jewellery />} />
+            <Route path="product/:id" element={<ViewProduct />} />
+            <Route path="bracelet" element={<Bracelet />} />
+            <Route path="ring" element={<Ring />} />
+            <Route path="necklace" element={<Necklace />} />
+            <Route path="earring" element={<Earring />} />
+            <Route path="checkout" element={<Checkout />} />
+          </Routes>
+        </Router>
+      </QueryClientProvider>
     </>
   );
 }

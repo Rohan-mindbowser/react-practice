@@ -37,7 +37,7 @@ export const Jewellery = () => {
           }}
         ></input>
         <div className="row">
-          <div className="col-md-3 mb-3">
+          <div className="col-lg-3 mb-3">
             {jewelleryData &&
               jewelleryData.map((jewellery) => {
                 if (jewellery.category === "bracelet") {
@@ -45,7 +45,7 @@ export const Jewellery = () => {
                 }
               })}
           </div>
-          <div className="col-md-3">
+          <div className="col-lg-3">
             {jewelleryData &&
               jewelleryData.map((jewellery) => {
                 if (jewellery.category === "earring") {
@@ -53,7 +53,7 @@ export const Jewellery = () => {
                 }
               })}
           </div>
-          <div className="col-md-3">
+          <div className="col-lg-3">
             {jewelleryData &&
               jewelleryData.map((jewellery) => {
                 if (jewellery.category === "ring") {
@@ -61,7 +61,7 @@ export const Jewellery = () => {
                 }
               })}
           </div>
-          <div className="col-md-3">
+          <div className="col-lg-3">
             {jewelleryData &&
               jewelleryData.map((jewellery) => {
                 if (jewellery.category === "necklace") {

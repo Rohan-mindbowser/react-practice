@@ -1,8 +1,16 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { cart } from "../../context/CartContext";
+import { SingleCartProduct } from "../single cart product/SingleCartProduct";
 import "./style.css";
 
 export const Navbar = () => {
+  const { cartProducts } = useContext(cart);
+  const totalCartProducts = cartProducts.length;
+  const [productsInCart, setproductsInCart] = useState([]);
+  useEffect(() => {
+    setproductsInCart(cartProducts);
+  }, [cartProducts]);
   return (
     <>
       <nav className="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
@@ -86,7 +94,9 @@ export const Navbar = () => {
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
             className="fa-sharp fa-solid fa-bag-shopping"
-          ></i>
+          >
+            ({cartProducts && cartProducts.length})
+          </i>
           <i className="fa-regular fa-heart nav_wishlist ms-3"></i>
         </div>
       </nav>
@@ -112,11 +122,23 @@ export const Navbar = () => {
                 aria-label="Close"
               ></button>
             </div>
-            <div className="modal-body">...</div>
+            <div className="modal-body">
+              {productsInCart &&
+                productsInCart.map((product) => {
+                  return <SingleCartProduct product={product} />;
+                })}
+            </div>
             <div className="modal-footer">
-              <button type="button" className="custom-btn">
-                Checkout
-              </button>
+              <NavLink to="/checkout">
+                <button
+                  className="custom-btn"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                  type="button"
+                >
+                  Checkout
+                </button>
+              </NavLink>
             </div>
           </div>
         </div>

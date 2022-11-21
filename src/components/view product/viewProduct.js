@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import { useSingleJewelleryApi } from "../../Api/JewelleryApi/useJewelleryApi";
 import { Navbar } from "../Navbar/Navbar";
@@ -7,28 +7,56 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import "./style.css";
+import { cart } from "../../context/CartContext";
 
 export const ViewProduct = () => {
   let { id } = useParams();
   const [singleJewellery, setSingleJewellery] = useState([]);
   const { isLoading, data } = useSingleJewelleryApi(id);
 
+  const { cartProducts, setCartProducts } = useContext(cart);
+
   useEffect(() => {
     setSingleJewellery(data);
-  });
-  function addProductToLocalStorage(product) {
-    let previousCartItem = localStorage.getItem("cartItem");
-    let newCartItems = [];
-    if (previousCartItem) {
-      newCartItems = JSON.parse(previousCartItem);
-    }
-    let isUpdatedQuantity = false;
-    newCartItems.forEach((item) => {
+  }, [data]);
+
+  // function addProductToLocalStorage(product) {
+  //   let previousCartItem = localStorage.getItem("cartItem");
+  //   let newCartItems = [];
+  //   if (previousCartItem) {
+  //     newCartItems = JSON.parse(previousCartItem);
+  //   }
+  //   let isUpdatedQuantity = false;
+  //   newCartItems.forEach((item) => {
+  //     if (item._id === product[0]._id) {
+  //       item.quantity = item.quantity + 1;
+  //       localStorage.setItem("cartItem", JSON.stringify(newCartItems));
+  //       isUpdatedQuantity = true;
+  //     }
+  //   });
+
+  //   if (!isUpdatedQuantity) {
+  //     newCartItems.push({ ...product[0], quantity: 1 });
+  //     localStorage.setItem("cartItem", JSON.stringify(newCartItems));
+  //     toast("Product added in cart", {
+  //       position: "bottom-right",
+  //       autoClose: 5000,
+  //       hideProgressBar: false,
+  //       closeOnClick: true,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       progress: undefined,
+  //       theme: "dark",
+  //     });
+  //   }
+  // }
+  function addToCart(product) {
+    let isQuantityUpdated = false;
+    cartProducts.forEach((item) => {
       if (item._id === product[0]._id) {
         item.quantity = item.quantity + 1;
-        localStorage.setItem("cartItem", JSON.stringify(newCartItems));
-        isUpdatedQuantity = true;
-        toast("Product added in cart", {
+        isQuantityUpdated = true;
+        toast("Product Quantity Updated..", {
           position: "bottom-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -40,10 +68,9 @@ export const ViewProduct = () => {
         });
       }
     });
-
-    if (!isUpdatedQuantity) {
-      newCartItems.push({ ...product[0], quantity: 1 });
-      localStorage.setItem("cartItem", JSON.stringify(newCartItems));
+    // console.log(cartProducts);
+    if (!isQuantityUpdated) {
+      setCartProducts([...cartProducts, { ...product[0], quantity: 1 }]);
       toast("Product added in cart", {
         position: "bottom-right",
         autoClose: 5000,
@@ -102,8 +129,11 @@ export const ViewProduct = () => {
               <div className="add_to_cart_and_heart mt-3">
                 <button
                   className="custom-btn"
+                  // onClick={() => {
+                  //   addProductToLocalStorage(singleJewellery);
+                  // }}
                   onClick={() => {
-                    addProductToLocalStorage(singleJewellery);
+                    addToCart(singleJewellery);
                   }}
                 >
                   Add To Cart
@@ -129,13 +159,13 @@ export const ViewProduct = () => {
           </div>
         )}
       </div>
-      <button
+      {/* <button
         onClick={() => {
           console.log(JSON.parse(localStorage.getItem("cartItem")));
         }}
       >
         View
-      </button>
+      </button> */}
       {/* <ProductSlider /> */}
       <ToastContainer />
     </>
