@@ -2,15 +2,18 @@ import { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { cart } from "../../context/CartContext";
 import { SingleCartProduct } from "../single cart product/SingleCartProduct";
+import SingleWishListProduct from "../single wishlist product/SingleWishListProduct";
 import "./style.css";
 
 export const Navbar = () => {
-  const { cartProducts } = useContext(cart);
+  const { cartProducts, wishList } = useContext(cart);
   const totalCartProducts = cartProducts.length;
   const [productsInCart, setproductsInCart] = useState([]);
+  const [productsInWishList, setproductsInWishList] = useState([]);
   useEffect(() => {
     setproductsInCart(cartProducts);
-  }, [cartProducts]);
+    setproductsInWishList(wishList);
+  }, [cartProducts, wishList]);
   return (
     <>
       <nav className="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
@@ -97,7 +100,14 @@ export const Navbar = () => {
           >
             ({cartProducts && cartProducts.length})
           </i>
-          <i className="fa-regular fa-heart nav_wishlist ms-3"></i>
+          <i
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasWithBothOptions"
+            aria-controls="offcanvasWithBothOptions"
+            className="fa-regular fa-heart nav_wishlist ms-3"
+          >
+            ({wishList && wishList.length})
+          </i>
         </div>
       </nav>
 
@@ -141,6 +151,33 @@ export const Navbar = () => {
               </NavLink>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* wishlist  */}
+      <div
+        className="offcanvas offcanvas-end"
+        data-bs-scroll="true"
+        tabIndex="-1"
+        id="offcanvasWithBothOptions"
+        aria-labelledby="offcanvasWithBothOptionsLabel"
+      >
+        <div className="offcanvas-header">
+          <h5 className="offcanvas-title" id="offcanvasWithBothOptionsLabel">
+            Wish List
+          </h5>
+          <button
+            type="button"
+            className="btn-close"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div className="offcanvas-body">
+          {productsInWishList &&
+            productsInWishList.map((product) => {
+              return <SingleWishListProduct product={product} />;
+            })}
         </div>
       </div>
     </>

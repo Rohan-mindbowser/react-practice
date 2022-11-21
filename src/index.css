@@ -23,8 +23,13 @@ code {
   text-transform: uppercase;
   transition: 0.4s all ease;
 }
-.custom-btn:hover{
+.custom-btn:hover {
   background-color: white;
   border: 2px solid #0097b9;
   color: #0097b9;
+}
+.offcanvas.show:not(.hiding),
+.offcanvas.showing {
+  transform: none;
+  width: 700px;
 }

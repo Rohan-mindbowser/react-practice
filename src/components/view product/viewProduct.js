@@ -12,9 +12,10 @@ import { cart } from "../../context/CartContext";
 export const ViewProduct = () => {
   let { id } = useParams();
   const [singleJewellery, setSingleJewellery] = useState([]);
-  const { isLoading, data } = useSingleJewelleryApi(id);
+  const { data } = useSingleJewelleryApi(id);
 
-  const { cartProducts, setCartProducts } = useContext(cart);
+  const { cartProducts, setCartProducts, wishList, setWishList } =
+    useContext(cart);
 
   useEffect(() => {
     setSingleJewellery(data);
@@ -84,6 +85,41 @@ export const ViewProduct = () => {
     }
   }
 
+  function addToWishList(jewellery) {
+    console.log(jewellery);
+    let isQuantityUpdated = false;
+    wishList.forEach((item) => {
+      if (item._id === jewellery[0]._id) {
+        item.quantity = item.quantity + 1;
+        isQuantityUpdated = true;
+        toast("Product Wish List Quantity Updated..", {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      }
+    });
+    // console.log(cartProducts);
+    if (!isQuantityUpdated) {
+      setWishList([...wishList, { ...jewellery[0], quantity: 1 }]);
+      toast("Product added to wishlist", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
+  }
+
   return (
     <>
       <Navbar />
@@ -99,6 +135,7 @@ export const ViewProduct = () => {
               <img
                 className="single_product_image"
                 src={singleJewellery[0]?.image}
+                alt={singleJewellery[0]?.product_name}
               ></img>
             </div>
             <div className="col-lg-7 single_product_content">
@@ -138,7 +175,12 @@ export const ViewProduct = () => {
                 >
                   Add To Cart
                 </button>
-                <i className="fa-solid fa-heart ms-3 heart_logo"></i>
+                <i
+                  onClick={() => {
+                    addToWishList(singleJewellery);
+                  }}
+                  className="fa-solid fa-heart ms-3 heart_logo"
+                ></i>
               </div>
               <div className="mt-4 single_product_desc">
                 <p className="single_product_desc">

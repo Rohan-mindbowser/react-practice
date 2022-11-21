@@ -1,43 +1,21 @@
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { cart } from "../../context/CartContext";
-import "./style.css";
 
-export const SingleCartProduct = ({ product }) => {
-  const { cartProducts, setCartProducts } = useContext(cart);
-  const [singleProduct, setSingleProduct] = useState();
-  function removeCartProduct() {
-    cartProducts.map((item, index) => {
-      if (item._id === product._id) {
-        cartProducts.splice(index, 1);
-      }
-    });
-    console.log(cartProducts);
-    setCartProducts([...cartProducts]);
-    // setlocalStorageProducts(cartProducts)
-  }
-
-  function increaseAndDecreaseQuantity(qty) {
-    if (Number(qty) === 0) {
-      console.log("0", qty);
-      removeCartProduct();
-    }
-    cartProducts.map((item, index) => {
-      if (item._id === product._id) {
-        item.quantity = qty;
-      }
-    });
-    setCartProducts([...cartProducts]);
-  }
-
+const SingleWishListProduct = ({ product }) => {
+  const [singleProduct, setsingleProduct] = useState();
+  const { wishList } = useContext(cart);
   useEffect(() => {
-    setSingleProduct(product);
-  }, [cartProducts]);
+    setsingleProduct(product);
+  }, [wishList]);
   return (
     <>
       {singleProduct && (
         <div className="cart_container mb-3">
           <div className="image">
-            <img src={singleProduct.image}></img>
+            <img
+              src={singleProduct.image}
+              alt={singleProduct.product_name}
+            ></img>
           </div>
           <div className="product_info">
             <span className="product_names">{singleProduct.product_name}</span>
@@ -54,7 +32,7 @@ export const SingleCartProduct = ({ product }) => {
               )}
             </span>
             <br />
-            <div className="d-flex justify-content-between mt-4">
+            <div className="d-flex justify-content-between align-items-center mt-4">
               <p style={{ margin: "0px" }}>
                 Quantity :{" "}
                 <span>
@@ -64,19 +42,24 @@ export const SingleCartProduct = ({ product }) => {
                     type="number"
                     defaultValue={singleProduct?.quantity}
                     onChange={(e) => {
-                      increaseAndDecreaseQuantity(e.target.value);
+                      //   increaseAndDecreaseQuantity(e.target.value);
                     }}
                   ></input>
                 </span>
               </p>
               <button
                 className="custom-btn"
+                style={{ fontSize: "20px" }}
                 onClick={() => {
-                  removeCartProduct();
+                  //   removeCartProduct();
                 }}
               >
-                Remove
+                Add To Cart
               </button>
+              <i
+                style={{ cursor: "pointer", color: "red",fontSize:"30px" }}
+                className="fa-solid fa-trash"
+              ></i>
             </div>
           </div>
         </div>
@@ -90,3 +73,5 @@ function currencyFormat(num) {
     return num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   }
 }
+
+export default SingleWishListProduct;

@@ -19,7 +19,8 @@ export const Checkout = () => {
         0
       )
     );
-  }, [cartProducts]);
+  }, [localStorageProducts, cartProducts]);
+
   return (
     <>
       {/* {localStorageProducts && console.log(localStorageProducts)} */}
@@ -40,7 +41,9 @@ export const Checkout = () => {
             <h3 className="order_summary">Order Summary</h3>
             <div className="sub_total d-flex justify-content-between">
               <span className="sub_total_title">Sub Total</span>
-              <span className="sub_total_value">{subTotal}</span>
+              <span className="sub_total_value">
+                Rs {subTotal > 0 ? currencyFormat(subTotal) : 0}
+              </span>
             </div>
             <div className="apply_coupon d-flex justify-content-between my-2">
               <span className="apply_coupon_title">Apply Coupon</span>
@@ -54,9 +57,14 @@ export const Checkout = () => {
             </div>
             <div className="total_cost d-flex justify-content-between mt-2">
               <span className="total_cost_title">TOTAL COST</span>
-              <span className="total_cost_value">1000</span>
+              <span className="total_cost_value">
+                Rs {subTotal > 0 ? currencyFormat(subTotal) : 0}
+              </span>
             </div>
-            <button className="mt-3 w-100 checkout_btn">
+            <button
+              disabled={subTotal <= 0}
+              className="mt-3 w-100 checkout_btn"
+            >
               Checkout Securely
             </button>
           </div>
@@ -65,3 +73,9 @@ export const Checkout = () => {
     </>
   );
 };
+
+function currencyFormat(num) {
+  if (num) {
+    return num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  }
+}
