@@ -1,18 +1,19 @@
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { cart } from "../../context/CartContext";
 import "./style.css";
 
 export const SingleProduct = ({ jewellery }) => {
   const { wishList, setWishList } = useContext(cart);
   function addToWishList() {
-    console.log(jewellery);
     let isQuantityUpdated = false;
     wishList.forEach((item) => {
-      if (item._id === jewellery[0]._id) {
+      if (item._id === jewellery._id) {
+        console.log("inside first loop");
         item.quantity = item.quantity + 1;
         isQuantityUpdated = true;
+        setWishList([...wishList]);
         toast("Product Wish List Quantity Updated..", {
           position: "bottom-right",
           autoClose: 5000,
@@ -27,7 +28,8 @@ export const SingleProduct = ({ jewellery }) => {
     });
     // console.log(cartProducts);
     if (!isQuantityUpdated) {
-      setWishList([...wishList, { ...jewellery[0], quantity: 1 }]);
+      console.log("inside second loop");
+      setWishList([...wishList, { ...jewellery, quantity: 1 }]);
       toast("Product added to wishlist", {
         position: "bottom-right",
         autoClose: 5000,
@@ -60,12 +62,11 @@ export const SingleProduct = ({ jewellery }) => {
         <span className="product_name">{jewellery.product_name}</span>
       </div>
       <i
-        onClick={() => {
-          addToWishList();
-        }}
+        onClick={addToWishList}
         style={{ cursor: "pointer" }}
         className="fa-solid fa-heart fav-heart"
       ></i>
+      <ToastContainer />
     </div>
   );
 };

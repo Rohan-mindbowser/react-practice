@@ -3,9 +3,6 @@ import { NavLink, useParams } from "react-router-dom";
 import { useSingleJewelleryApi } from "../../Api/JewelleryApi/useJewelleryApi";
 import { Navbar } from "../Navbar/Navbar";
 import { ToastContainer, toast } from "react-toastify";
-
-import "react-toastify/dist/ReactToastify.css";
-
 import "./style.css";
 import { cart } from "../../context/CartContext";
 
@@ -57,6 +54,7 @@ export const ViewProduct = () => {
       if (item._id === product[0]._id) {
         item.quantity = item.quantity + 1;
         isQuantityUpdated = true;
+        setCartProducts([...cartProducts]);
         toast("Product Quantity Updated..", {
           position: "bottom-right",
           autoClose: 5000,
@@ -92,6 +90,7 @@ export const ViewProduct = () => {
       if (item._id === jewellery[0]._id) {
         item.quantity = item.quantity + 1;
         isQuantityUpdated = true;
+        setWishList([...wishList]);
         toast("Product Wish List Quantity Updated..", {
           position: "bottom-right",
           autoClose: 5000,
@@ -176,6 +175,7 @@ export const ViewProduct = () => {
                   Add To Cart
                 </button>
                 <i
+                  style={{ cursor: "pointer" }}
                   onClick={() => {
                     addToWishList(singleJewellery);
                   }}

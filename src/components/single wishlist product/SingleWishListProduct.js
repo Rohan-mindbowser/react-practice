@@ -2,8 +2,27 @@ import React, { useContext, useEffect, useState } from "react";
 import { cart } from "../../context/CartContext";
 
 const SingleWishListProduct = ({ product }) => {
-  const [singleProduct, setsingleProduct] = useState();
-  const { wishList } = useContext(cart);
+  const [singleProduct, setsingleProduct] = useState([]);
+  const { wishList, setWishList } = useContext(cart);
+  function removeWishListProduct() {
+    wishList.forEach((item, index) => {
+      if (item._id === product._id) {
+        wishList.splice(index, 1);
+      }
+    });
+    setWishList([...wishList]);
+  }
+  function increaseAndDecreaseQuantity(qty) {
+    if (Number(qty) === 0) {
+      removeWishListProduct();
+    }
+    wishList.forEach((item, index) => {
+      if (item._id === product._id) {
+        item.quantity = qty;
+      }
+    });
+    setWishList([...wishList]);
+  }
   useEffect(() => {
     setsingleProduct(product);
   }, [wishList]);
@@ -40,24 +59,21 @@ const SingleWishListProduct = ({ product }) => {
                     className="quantity_input"
                     max="3"
                     type="number"
-                    defaultValue={singleProduct?.quantity}
+                    value={singleProduct.quantity}
                     onChange={(e) => {
-                      //   increaseAndDecreaseQuantity(e.target.value);
+                      increaseAndDecreaseQuantity(e.target.value);
                     }}
                   ></input>
                 </span>
               </p>
-              <button
-                className="custom-btn"
-                style={{ fontSize: "20px" }}
-                onClick={() => {
-                  //   removeCartProduct();
-                }}
-              >
+              <button className="custom-btn" style={{ fontSize: "20px" }}>
                 Add To Cart
               </button>
               <i
-                style={{ cursor: "pointer", color: "red",fontSize:"30px" }}
+                onClick={() => {
+                  removeWishListProduct();
+                }}
+                style={{ cursor: "pointer", color: "red", fontSize: "30px" }}
                 className="fa-solid fa-trash"
               ></i>
             </div>

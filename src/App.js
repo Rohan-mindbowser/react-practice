@@ -19,6 +19,8 @@ import { Ring } from "./components/Category/Ring";
 import { Necklace } from "./components/Category/Necklace";
 import { Earring } from "./components/Category/Earring";
 import { Checkout } from "./components/checkout/Checkout";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const queryClient = new QueryClient();
 

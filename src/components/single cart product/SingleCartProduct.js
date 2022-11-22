@@ -6,19 +6,16 @@ export const SingleCartProduct = ({ product }) => {
   const { cartProducts, setCartProducts } = useContext(cart);
   const [singleProduct, setSingleProduct] = useState();
   function removeCartProduct() {
-    cartProducts.map((item, index) => {
+    cartProducts.forEach((item, index) => {
       if (item._id === product._id) {
         cartProducts.splice(index, 1);
       }
     });
-    console.log(cartProducts);
     setCartProducts([...cartProducts]);
-    // setlocalStorageProducts(cartProducts)
   }
 
   function increaseAndDecreaseQuantity(qty) {
     if (Number(qty) === 0) {
-      console.log("0", qty);
       removeCartProduct();
     }
     cartProducts.map((item, index) => {
@@ -60,9 +57,10 @@ export const SingleCartProduct = ({ product }) => {
                 <span>
                   <input
                     className="quantity_input"
+                    min="1"
                     max="3"
                     type="number"
-                    defaultValue={singleProduct?.quantity}
+                    Value={singleProduct.quantity}
                     onChange={(e) => {
                       increaseAndDecreaseQuantity(e.target.value);
                     }}

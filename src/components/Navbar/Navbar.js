@@ -1,3 +1,4 @@
+import { IconButton } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { cart } from "../../context/CartContext";
@@ -100,6 +101,11 @@ export const Navbar = () => {
           >
             ({cartProducts && cartProducts.length})
           </i>
+          {/* <IconButton aria-label="cart">
+            <StyledBadge badgeContent={4} color="secondary">
+              <ShoppingCartIcon />
+            </StyledBadge>
+          </IconButton> */}
           <i
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasWithBothOptions"
