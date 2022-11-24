@@ -8,6 +8,7 @@ export const Checkout = () => {
   const [localStorageProducts, setlocalStorageProducts] = useState([]);
   const [subTotal, setSubTotal] = useState(0);
   const { cartProducts, setCartProducts } = useContext(cart);
+
   useEffect(() => {
     setlocalStorageProducts(cartProducts);
     setSubTotal(

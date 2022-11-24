@@ -1,9 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
 import { cart } from "../../context/CartContext";
 
 const SingleWishListProduct = ({ product }) => {
   const [singleProduct, setsingleProduct] = useState([]);
-  const { wishList, setWishList } = useContext(cart);
+  const { wishList, setWishList, setCartProducts, cartProducts } =
+    useContext(cart);
+
   function removeWishListProduct() {
     wishList.forEach((item, index) => {
       if (item._id === product._id) {
@@ -12,6 +15,7 @@ const SingleWishListProduct = ({ product }) => {
     });
     setWishList([...wishList]);
   }
+
   function increaseAndDecreaseQuantity(qty) {
     if (Number(qty) === 0) {
       removeWishListProduct();
@@ -23,9 +27,26 @@ const SingleWishListProduct = ({ product }) => {
     });
     setWishList([...wishList]);
   }
+
+  function moveToCart() {
+    setCartProducts([...cartProducts, { ...product }]);
+    removeWishListProduct();
+    toast("Product Moved to cart..", {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  }
+
   useEffect(() => {
     setsingleProduct(product);
   }, [wishList]);
+
   return (
     <>
       {singleProduct && (
@@ -66,7 +87,11 @@ const SingleWishListProduct = ({ product }) => {
                   ></input>
                 </span>
               </p>
-              <button className="custom-btn" style={{ fontSize: "20px" }}>
+              <button
+                onClick={moveToCart}
+                className="custom-btn"
+                style={{ fontSize: "20px" }}
+              >
                 Add To Cart
               </button>
               <i
@@ -80,6 +105,7 @@ const SingleWishListProduct = ({ product }) => {
           </div>
         </div>
       )}
+      <ToastContainer />
     </>
   );
 };

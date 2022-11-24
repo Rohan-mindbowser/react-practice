@@ -1,16 +1,6 @@
 import "./App.css";
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Profile } from "./components/Profile/Profile";
-import { Dashboard } from "./components/Dashboard/Dashboard";
-import { ProtectedRoute } from "./Common/ProtectedRoutes/ProtectedRoute";
-import { Home } from "./components/Home/Home";
-import { createContext } from "react";
-import { Books } from "./components/Books/Books";
-import { Register } from "./components/RegisterForm/Register";
-import { Notfound } from "./components/Notfound";
-import { Login } from "./components/Login/Login";
-import { ParentComp } from "./components/ParentComp";
 import { Jewellery } from "./components/jewellery/Jewellery";
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import { ViewProduct } from "./components/view product/viewProduct";
@@ -20,7 +10,8 @@ import { Necklace } from "./components/Category/Necklace";
 import { Earring } from "./components/Category/Earring";
 import { Checkout } from "./components/checkout/Checkout";
 import "react-toastify/dist/ReactToastify.css";
-
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const queryClient = new QueryClient();
 
@@ -35,7 +26,7 @@ function App() {
           <NavLink to="/book/:id">Books</NavLink>
           <NavLink to="/register">Register</NavLink> */}
           <Routes>
-            <Route path="/" element={<ProtectedRoute />}>
+            {/* <Route path="/" element={<ProtectedRoute />}>
               <Route path="user" element={<ParentComp />}>
                 <Route path="profile" element={<Profile />} />
                 <Route path="book/:id" element={<Books />} />
@@ -43,11 +34,14 @@ function App() {
               </Route>
               <Route path="/login" element={<Login />} />
               <Route path="/dash" element={<ProtectedRoute />} />
-              {/* Route for 404 not found page  */}
-              {/* <Route path="*" element={<Notfound />} /> */}
-            </Route>
+            </Route> */}
+            <Route path="/" element={<Jewellery />} />
             <Route path="jewellery" element={<Jewellery />} />
-            <Route path="product/:id" element={<ViewProduct />} />
+            <Route
+              path="product/:cat/:id"
+              forceRefresh={true}
+              element={<ViewProduct />}
+            />
             <Route path="bracelet" element={<Bracelet />} />
             <Route path="ring" element={<Ring />} />
             <Route path="necklace" element={<Necklace />} />

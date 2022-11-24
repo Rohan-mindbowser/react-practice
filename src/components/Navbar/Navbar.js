@@ -1,20 +1,23 @@
-import { IconButton } from "@mui/material";
+import { Badge, IconButton } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { cart } from "../../context/CartContext";
 import { SingleCartProduct } from "../single cart product/SingleCartProduct";
 import SingleWishListProduct from "../single wishlist product/SingleWishListProduct";
 import "./style.css";
+import { Favorite, MailIcon, ShoppingCart } from "@mui/icons-material";
 
 export const Navbar = () => {
   const { cartProducts, wishList } = useContext(cart);
   const totalCartProducts = cartProducts.length;
   const [productsInCart, setproductsInCart] = useState([]);
   const [productsInWishList, setproductsInWishList] = useState([]);
+
   useEffect(() => {
     setproductsInCart(cartProducts);
     setproductsInWishList(wishList);
   }, [cartProducts, wishList]);
+
   return (
     <>
       <nav className="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
@@ -94,26 +97,30 @@ export const Navbar = () => {
               </li>
             </ul>
           </div>
-          <i
-            data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
-            className="fa-sharp fa-solid fa-bag-shopping"
-          >
-            ({cartProducts && cartProducts.length})
-          </i>
           {/* <IconButton aria-label="cart">
             <StyledBadge badgeContent={4} color="secondary">
               <ShoppingCartIcon />
             </StyledBadge>
           </IconButton> */}
-          <i
+          <Badge
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+            badgeContent={cartProducts?.length}
+            color="primary"
+          >
+            <ShoppingCart sx={{ color: "white", cursor: "pointer" }} />
+          </Badge>
+          <Badge
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasWithBothOptions"
             aria-controls="offcanvasWithBothOptions"
-            className="fa-regular fa-heart nav_wishlist ms-3"
+            badgeContent={wishList?.length}
+            color="secondary"
           >
-            ({wishList && wishList.length})
-          </i>
+            <Favorite
+              sx={{ color: "white", marginLeft: "20px", cursor: "pointer" }}
+            />
+          </Badge>
         </div>
       </nav>
 
@@ -128,9 +135,9 @@ export const Navbar = () => {
         <div className="modal-dialog modal-dialog-scrollable modal-lg">
           <div className="modal-content">
             <div className="modal-header">
-              <h1 className="modal-title fs-5" id="exampleModalLabel">
+              <h3 className="modal-title" id="exampleModalLabel">
                 Your Cart
-              </h1>
+              </h3>
               <button
                 type="button"
                 className="btn-close"
@@ -169,9 +176,9 @@ export const Navbar = () => {
         aria-labelledby="offcanvasWithBothOptionsLabel"
       >
         <div className="offcanvas-header">
-          <h5 className="offcanvas-title" id="offcanvasWithBothOptionsLabel">
+          <h3 className="offcanvas-title" id="offcanvasWithBothOptionsLabel">
             Wish List
-          </h5>
+          </h3>
           <button
             type="button"
             className="btn-close"

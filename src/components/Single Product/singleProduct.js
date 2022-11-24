@@ -43,31 +43,33 @@ export const SingleProduct = ({ jewellery }) => {
     }
   }
   return (
-    <div className="mb-5 single_product_container">
-      <NavLink to={`/product/${jewellery._id}`}>
-        <img
-          className="product_img"
-          src={jewellery.image}
-          alt="product image"
-        ></img>
-      </NavLink>
-      <div className="product_inner_content p-1">
-        <span className="price">
-          {currencyFormat(
-            jewellery.original_price -
-              (jewellery.discount * jewellery.original_price) / 100
-          )}
-        </span>
-        <span className="original_price">{jewellery.original_price}</span>
-        <span className="product_name">{jewellery.product_name}</span>
+    <>
+      <div className="mb-5 single_product_container">
+        <NavLink to={`/product/${jewellery.category}/${jewellery._id}`}>
+          <img
+            className="product_img"
+            src={jewellery.image}
+            alt="product image"
+          ></img>
+        </NavLink>
+        <div className="product_inner_content p-1">
+          <span className="price">
+            {currencyFormat(
+              jewellery.original_price -
+                (jewellery.discount * jewellery.original_price) / 100
+            )}
+          </span>
+          <span className="original_price">{jewellery.original_price}</span>
+          <span className="product_name">{jewellery.product_name}</span>
+        </div>
+        <i
+          onClick={addToWishList}
+          style={{ cursor: "pointer" }}
+          className="fa-solid fa-heart fav-heart"
+        ></i>
+        <ToastContainer />
       </div>
-      <i
-        onClick={addToWishList}
-        style={{ cursor: "pointer" }}
-        className="fa-solid fa-heart fav-heart"
-      ></i>
-      <ToastContainer />
-    </div>
+    </>
   );
 };
 

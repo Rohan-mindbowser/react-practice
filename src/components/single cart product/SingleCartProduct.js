@@ -5,6 +5,7 @@ import "./style.css";
 export const SingleCartProduct = ({ product }) => {
   const { cartProducts, setCartProducts } = useContext(cart);
   const [singleProduct, setSingleProduct] = useState();
+
   function removeCartProduct() {
     cartProducts.forEach((item, index) => {
       if (item._id === product._id) {
@@ -29,6 +30,7 @@ export const SingleCartProduct = ({ product }) => {
   useEffect(() => {
     setSingleProduct(product);
   }, [cartProducts]);
+
   return (
     <>
       {singleProduct && (

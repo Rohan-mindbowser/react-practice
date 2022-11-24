@@ -1,53 +1,30 @@
 import { useContext, useEffect, useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
-import { useSingleJewelleryApi } from "../../Api/JewelleryApi/useJewelleryApi";
+import { NavLink, useLocation, useParams } from "react-router-dom";
 import { Navbar } from "../Navbar/Navbar";
 import { ToastContainer, toast } from "react-toastify";
 import "./style.css";
 import { cart } from "../../context/CartContext";
+import ProductSlider from "../Product Slider/ProductSlider";
+import axios from "axios";
 
 export const ViewProduct = () => {
   let { id } = useParams();
   const [singleJewellery, setSingleJewellery] = useState([]);
-  const { data } = useSingleJewelleryApi(id);
+  let location = useLocation();
 
   const { cartProducts, setCartProducts, wishList, setWishList } =
     useContext(cart);
 
   useEffect(() => {
-    setSingleJewellery(data);
-  }, [data]);
+    axios
+      .get(`http://localhost:8000/api/products/singleproduct?id=${id}`)
+      .then((res) => {
+        const jewellery = res.data;
+        setSingleJewellery(jewellery);
+        window.scrollTo(0, 0);
+      });
+  }, [location]);
 
-  // function addProductToLocalStorage(product) {
-  //   let previousCartItem = localStorage.getItem("cartItem");
-  //   let newCartItems = [];
-  //   if (previousCartItem) {
-  //     newCartItems = JSON.parse(previousCartItem);
-  //   }
-  //   let isUpdatedQuantity = false;
-  //   newCartItems.forEach((item) => {
-  //     if (item._id === product[0]._id) {
-  //       item.quantity = item.quantity + 1;
-  //       localStorage.setItem("cartItem", JSON.stringify(newCartItems));
-  //       isUpdatedQuantity = true;
-  //     }
-  //   });
-
-  //   if (!isUpdatedQuantity) {
-  //     newCartItems.push({ ...product[0], quantity: 1 });
-  //     localStorage.setItem("cartItem", JSON.stringify(newCartItems));
-  //     toast("Product added in cart", {
-  //       position: "bottom-right",
-  //       autoClose: 5000,
-  //       hideProgressBar: false,
-  //       closeOnClick: true,
-  //       pauseOnHover: true,
-  //       draggable: true,
-  //       progress: undefined,
-  //       theme: "dark",
-  //     });
-  //   }
-  // }
   function addToCart(product) {
     let isQuantityUpdated = false;
     cartProducts.forEach((item) => {
@@ -200,6 +177,8 @@ export const ViewProduct = () => {
             </div>
           </div>
         )}
+
+        <ProductSlider />
       </div>
       {/* <button
         onClick={() => {
@@ -208,7 +187,6 @@ export const ViewProduct = () => {
       >
         View
       </button> */}
-      {/* <ProductSlider /> */}
       <ToastContainer />
     </>
   );
