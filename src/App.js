@@ -1,8 +1,7 @@
 import "./App.css";
-import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Jewellery } from "./components/jewellery/Jewellery";
-import { QueryClient, QueryClientProvider, useQuery } from "react-query";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { ViewProduct } from "./components/view product/viewProduct";
 import { Bracelet } from "./components/Category/Bracelet";
 import { Ring } from "./components/Category/Ring";
@@ -16,7 +15,6 @@ import "slick-carousel/slick/slick-theme.css";
 const queryClient = new QueryClient();
 
 function App() {
-  const [name, setName] = useState("Rohan");
   return (
     <>
       <QueryClientProvider client={queryClient}>

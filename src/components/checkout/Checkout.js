@@ -24,7 +24,6 @@ export const Checkout = () => {
 
   return (
     <>
-      {/* {localStorageProducts && console.log(localStorageProducts)} */}
       <div className="container mt-3">
         <div className="mb-4 back_link">
           <NavLink to="/jewellery">

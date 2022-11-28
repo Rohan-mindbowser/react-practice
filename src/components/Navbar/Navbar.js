@@ -97,11 +97,6 @@ export const Navbar = () => {
               </li>
             </ul>
           </div>
-          {/* <IconButton aria-label="cart">
-            <StyledBadge badgeContent={4} color="secondary">
-              <ShoppingCartIcon />
-            </StyledBadge>
-          </IconButton> */}
           <Badge
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"

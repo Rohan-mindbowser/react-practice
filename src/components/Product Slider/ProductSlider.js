@@ -5,7 +5,6 @@ import { useJewelleryByCategoryApi } from "../../Api/JewelleryApi/useJewelleryAp
 import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
 import { settings } from "../../Common/ImageSlider/ImageSlider";
 
-
 const ProductSlider = () => {
   let { cat } = useParams();
   const { isLoading, data } = useJewelleryByCategoryApi(cat);
@@ -24,9 +23,16 @@ const ProductSlider = () => {
         {sliderData &&
           sliderData.map((product) => {
             return (
-              <div>
+              <div className="p-2">
                 <NavLink to={`/product/${product.category}/${product._id}`}>
-                  <img style={{ width: "90%" }} src={product.image}></img>
+                  <img
+                    style={{
+                      width: "100%",
+                      maxHeight: "350px",
+                      objectFit: "cover",
+                    }}
+                    src={product.image}
+                  ></img>
                 </NavLink>
               </div>
             );

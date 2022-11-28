@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useJewelleryApi } from "../../Api/JewelleryApi/useJewelleryApi";
 import { Navbar } from "../Navbar/Navbar";
 import { SingleProduct } from "../Single Product/singleProduct";
-import { ProductSlider } from "../Product Slider/ProductSlider";
 import "./style.css";
 import axios from "axios";
 
