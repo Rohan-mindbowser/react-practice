@@ -6,13 +6,16 @@ import reportWebVitals from "./reportWebVitals";
 import CartContext from "./context/CartContext";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import MultiFormContext from "./context/MultiFormContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <CartContext>
-      <App />
-    </CartContext>
+    <MultiFormContext>
+      <CartContext>
+        <App />
+      </CartContext>
+    </MultiFormContext>
   </React.StrictMode>
 );
 

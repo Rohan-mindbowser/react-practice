@@ -39,7 +39,7 @@ export const Jewellery = () => {
       <Navbar />
       <div className="container jewellery_container">
         <div className="d-flex align-items-center mb-3">
-          <div className="d-flex align-items-center flex-column">
+          <div className="d-flex align-items-center flex-column flex-wrap">
             <span className="">Filter Products By Price</span>
             <div>
               <span>0</span>

@@ -11,6 +11,7 @@ import { Checkout } from "./components/checkout/Checkout";
 import "react-toastify/dist/ReactToastify.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import MultiStepForm from "./components/Multi Step Form/MultiStepForm";
 
 const queryClient = new QueryClient();
 
@@ -33,7 +34,8 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/dash" element={<ProtectedRoute />} />
             </Route> */}
-            <Route path="/" element={<Jewellery />} />
+            {/* <Route path="/" element={<Jewellery />} /> */}
+            <Route path="/" element={<MultiStepForm />} />
             <Route path="jewellery" element={<Jewellery />} />
             <Route
               path="product/:cat/:id"
