@@ -33,3 +33,6 @@ code {
   transform: none;
   width: 700px;
 }
+.error-alert {
+  color: red;
+}

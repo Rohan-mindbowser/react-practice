@@ -26,6 +26,7 @@ const AccountDetails = () => {
             setMultiFormData({ ...multiFormData, email: e.target.value });
           }}
         />
+        
         <input
           autoComplete="off"
           className="form-input-field"
@@ -45,7 +46,7 @@ const AccountDetails = () => {
           className="form-input-field"
           placeholder="Enter confirm password"
           type="password"
-          {...register("confirmPassword")}
+          {...register("confirmPassword", { min: 18, max: 99 })}
           defaultValue={multiFormData.confirmPassword}
           onChange={(e) => {
             setMultiFormData({

@@ -1,6 +1,16 @@
 import React, { useContext } from "react";
 import { MultiForm } from "../../../context/MultiFormContext";
 import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const schema = yup
+  .object({
+    firstname: yup.string().required(),
+    lastname: yup.string().required(),
+    age: yup.number().positive().integer().required(),
+  })
+  .required();
 
 const PersonalDetails = () => {
   const { multiFormData, setMultiFormData, pageNumber, setPageNumber } =
@@ -8,10 +18,15 @@ const PersonalDetails = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm();
+    formState: { errors, isValid, touchedFields, isDirty },
+  } = useForm({
+    defaultValues: { firstname: "" },
+    resolver: yupResolver(schema),
+  });
 
   const onSubmit = (data) => console.log(data);
+
+  console.log("isDirty", isDirty);
 
   return (
     <>
@@ -22,12 +37,16 @@ const PersonalDetails = () => {
             className="form-input-field"
             placeholder="Enter first name"
             type="text"
+            name="firstname"
             defaultValue={multiFormData?.firstname}
-            {...register("firstname")}
+            {...register("firstname", { required: true })}
             onChange={(e) => {
               setMultiFormData({ ...multiFormData, firstname: e.target.value });
             }}
           />
+          {isDirty && errors.firstname?.message && (
+            <span className="error_message">{errors.firstname.message}</span>
+          )}
           <input
             className="form-input-field"
             placeholder="Enter last name"
@@ -75,24 +94,25 @@ const PersonalDetails = () => {
             }}
           />
           <br />
-          {/* <input type="submit" /> */}
+          <div className="d-flex justify-content-between">
+            <button
+              className={pageNumber === 0 ? "disable-btn" : "custom-btn"}
+              disabled={pageNumber === 0 ? true : false}
+              onClick={() => setPageNumber((currValue) => currValue - 1)}
+            >
+              Prev
+            </button>
+            <button
+              type="submit"
+              className={!isValid ? "disable-btn" : "custom-btn"}
+              disabled={!isValid}
+              onClick={() => setPageNumber((currValue) => currValue + 1)}
+            >
+              Next
+            </button>
+          </div>
+          <button type="submit">Submit</button>
         </form>
-        <div className="d-flex justify-content-between">
-          <button
-            className={pageNumber === 0 ? "disable-btn" : "custom-btn"}
-            disabled={pageNumber === 0 ? true : false}
-            onClick={() => setPageNumber((currValue) => currValue - 1)}
-          >
-            Prev
-          </button>
-          <button
-            className={pageNumber === 2 ? "disable-btn" : "custom-btn"}
-            disabled={pageNumber === 2 ? true : false}
-            onClick={() => setPageNumber((currValue) => currValue + 1)}
-          >
-            Next
-          </button>
-        </div>
       </div>
     </>
   );
