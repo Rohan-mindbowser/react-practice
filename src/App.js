@@ -13,6 +13,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import MultiStepForm from "./components/Multi Step Form/MultiStepForm";
 import RegisterFormikForm from "./components/formik-yup/RegisterFormikForm";
+import Mui from "./components/mui/Mui";
 
 const queryClient = new QueryClient();
 
@@ -48,6 +49,8 @@ function App() {
             <Route path="necklace" element={<Necklace />} />
             <Route path="earring" element={<Earring />} />
             <Route path="checkout" element={<Checkout />} />
+            <Route path="mui" element={<Mui />} />
+
             <Route path="formik" element={<RegisterFormikForm />} />
           </Routes>
         </Router>

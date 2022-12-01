@@ -55,6 +55,8 @@ const RegisterFormikForm = () => {
         >
           <Grid item>
             <TextField
+              error={(touched.name && errors.name) || false}
+              helperText={touched.name && errors.name ? errors.name : null}
               id="outlined-basic"
               name="name"
               label="Full Name"
@@ -63,12 +65,11 @@ const RegisterFormikForm = () => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {touched.name && errors.name && (
-              <p className="error-alert">{errors.name}</p>
-            )}
           </Grid>
           <Grid item>
             <TextField
+              error={(touched.email && errors.email) || false}
+              helperText={touched.email && errors.email ? errors.email : null}
               id="outlined-basic"
               name="email"
               label="Email"
@@ -77,12 +78,13 @@ const RegisterFormikForm = () => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {touched.email && errors.email && (
-              <p className="error-alert">{errors.email}</p>
-            )}
           </Grid>
           <Grid item>
             <TextField
+              error={(touched.password && errors.password) || false}
+              helperText={
+                touched.password && errors.password ? errors.password : null
+              }
               type="password"
               id="outlined-basic"
               name="password"
@@ -92,12 +94,17 @@ const RegisterFormikForm = () => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {touched.password && errors.password && (
-              <p className="error-alert">{errors.password}</p>
-            )}
           </Grid>
           <Grid item>
             <TextField
+              error={
+                (touched.confirmPassword && errors.confirmPassword) || false
+              }
+              helperText={
+                touched.confirmPassword && errors.confirmPassword
+                  ? errors.confirmPassword
+                  : null
+              }
               type="password"
               id="outlined-basic"
               label="Confirm Password"
@@ -107,9 +114,6 @@ const RegisterFormikForm = () => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {touched.confirmPassword && errors.confirmPassword && (
-              <p className="error-alert">{errors.confirmPassword}</p>
-            )}
           </Grid>
           <Button color="primary" variant="contained" fullWidth type="submit">
             Submit
