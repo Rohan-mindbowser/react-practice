@@ -14,6 +14,7 @@ import "slick-carousel/slick/slick-theme.css";
 import MultiStepForm from "./components/Multi Step Form/MultiStepForm";
 import RegisterFormikForm from "./components/formik-yup/RegisterFormikForm";
 import Mui from "./components/mui/Mui";
+import HomePage from "./components/rick and morty/HomePage/HomePage";
 
 const queryClient = new QueryClient();
 
@@ -37,7 +38,8 @@ function App() {
               <Route path="/dash" element={<ProtectedRoute />} />
             </Route> */}
             {/* <Route path="/" element={<Jewellery />} /> */}
-            <Route path="/" element={<MultiStepForm />} />
+            {/* <Route path="/" element={<MultiStepForm />} /> */}
+            <Route path="/" element={<HomePage />} />
             <Route path="jewellery" element={<Jewellery />} />
             <Route
               path="product/:cat/:id"

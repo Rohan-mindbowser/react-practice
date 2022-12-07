@@ -1,0 +1,53 @@
+.character_img {
+  /* width: 60%; */
+  object-fit: cover;
+  max-height: 400px;
+  border-radius: 10px;
+}
+.MuiAppBar-root {
+  background-color: #000000 !important;
+}
+.character_container {
+  background-color: #4b4b4b;
+  border-radius: 10px;
+  height: 340px;
+  display: flex;
+}
+.css-975e80-MuiGrid-root > .MuiGrid-item {
+  padding-left: 0px !important;
+}
+.character_name {
+  color: white;
+  font-weight: 700;
+  font-size: 34px;
+}
+.main_character_container {
+  display: flex;
+  justify-content: center;
+}
+.status-circle {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+.status-circle-dead {
+  background-color: red;
+}
+.character_status {
+  color: white;
+}
+.status-circle-unknow {
+  background-color: yellow;
+}
+.status-circle-alive {
+  background-color: green;
+}
+.location_title,
+.seen_title {
+  color: rgb(176, 176, 176);
+}
+.location_value,
+.seen_value {
+  color: white;
+  font-size: 28px;
+}

@@ -7,15 +7,19 @@ import CartContext from "./context/CartContext";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import MultiFormContext from "./context/MultiFormContext";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <MultiFormContext>
-      <CartContext>
-        <App />
-      </CartContext>
-    </MultiFormContext>
+    <Provider store={store}>
+      <MultiFormContext>
+        <CartContext>
+          <App />
+        </CartContext>
+      </MultiFormContext>
+    </Provider>
   </React.StrictMode>
 );
 

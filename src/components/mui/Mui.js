@@ -3,8 +3,8 @@ import React from "react";
 
 const Mui = () => {
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2}>
+    <Box>
+      <Grid container spacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid item sx={{ backgroundColor: "red" }} xs={12} sm={6} md={8}>
           <p>xs=6 md=8</p>
         </Grid>
