@@ -15,6 +15,7 @@ import MultiStepForm from "./components/Multi Step Form/MultiStepForm";
 import RegisterFormikForm from "./components/formik-yup/RegisterFormikForm";
 import Mui from "./components/mui/Mui";
 import HomePage from "./components/rick and morty/HomePage/HomePage";
+import Counter from "./components/counterApp/Counter";
 
 const queryClient = new QueryClient();
 
@@ -52,6 +53,7 @@ function App() {
             <Route path="earring" element={<Earring />} />
             <Route path="checkout" element={<Checkout />} />
             <Route path="mui" element={<Mui />} />
+            <Route path="counter" element={<Counter />} />
 
             <Route path="formik" element={<RegisterFormikForm />} />
           </Routes>

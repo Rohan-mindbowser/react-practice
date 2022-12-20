@@ -9,16 +9,22 @@ const HomePage = () => {
   //   const [page, setPage] = useState(2);
   let page = 2;
 
-  const card_call = () => {
+  const handleOnPaginate = (prevCharacters) => {
+    console.log("inside function");
     axios
       .get(`https://rickandmortyapi.com/api/character?page=${page}`)
-      .then(function (response) {
+      .then((response) => {
+        console.log(response.data.results);
         const data = response.data.results;
-        console.log("Before :", characters);
-        const new_data = characters.concat(data);
-        console.log("new_data", new_data);
-        setCharacters(new_data);
-        console.log("After :", characters);
+
+        // const new_data = [...characters, ...data];
+        console.log("char :", prevCharacters);
+        // setCharacters([...characters, ...data]);
+        // console.log("Before :", characters);
+        // const new_data = characters.concat(data);
+        // console.log("new_data", new_data);
+        // setCharacters(new_data);
+        // console.log("After :", characters);
       })
       .catch(function (error) {
         console.error(error);
@@ -32,7 +38,8 @@ const HomePage = () => {
       window.innerHeight + e.target.documentElement.scrollTop + 1 >=
       e.target.documentElement.scrollHeight
     ) {
-      card_call();
+      console.log("scroll called");
+      handleOnPaginate(characters);
     }
   }
 

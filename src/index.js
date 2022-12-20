@@ -8,17 +8,19 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import MultiFormContext from "./context/MultiFormContext";
 import { Provider } from "react-redux";
+import { ApiProvider } from "@reduxjs/toolkit/query/react";
 import store from "./redux/store";
+import { productsApi } from "./redux/productApiSlice";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <MultiFormContext>
-        <CartContext>
-          <App />
-        </CartContext>
-      </MultiFormContext>
+        <MultiFormContext>
+          <CartContext>
+            <App />
+          </CartContext>
+        </MultiFormContext>
     </Provider>
   </React.StrictMode>
 );
